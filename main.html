@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Total Horas e Minutos</title>
+</head>
+<body>
+
+
+<h2>Total Horas e Minutos</h2>
+
+<div id="previousHours"></div>
+
+<script>
+// JavaScript code
+let total_horas = 0;
+let total_minutos = 0;
+let horas = 0;
+let minutos = 0;
+let sobra = 0;
+let final_minutos = 0;
+let hoursList = [];
+
+while (true) {
+    tempo = prompt("Digite o horário (horas e minutos separados por espaço e com duas casas para os minutos), ou '0' para finalizar: ");
+    if (tempo === '0') {
+        break;
+    } else {
+        horas = parseInt(tempo.slice(0, tempo.indexOf(' ')));
+        minutos = parseInt(tempo.slice(tempo.indexOf(' ') + 1));
+        total_horas = total_horas + horas;
+        total_minutos = total_minutos + minutos;
+        hoursList.push(`${horas}:${minutos}`);
+        // Update previous hours display
+        document.getElementById('previousHours').innerHTML = "<h3>Horas colocadas:</h3>";
+        for (let i = 0; i < hoursList.length; i++) {
+            document.getElementById('previousHours').innerHTML += "<p>" + hoursList[i] + "</p>";
+        }
+    }
+}
+
+if (total_minutos >= 60) {
+    sobra = parseInt(total_minutos / 60);
+    final_minutos = total_minutos % 60;
+}
+
+total_horas = total_horas + sobra;
+
+if (final_minutos == 0) {
+    final_minutos = "00";
+}
+
+document.write("<p>Tempo total = " + total_horas + ":" + final_minutos + "</p>");
+</script>
+
+</body>
+</html>
+
