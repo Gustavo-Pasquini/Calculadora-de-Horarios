@@ -9,7 +9,7 @@
 
 <h2>Total Horas e Minutos</h2>
 
-<div id="previousHours"></div>
+<div id="horasAnteriores"></div>
 
 <script>
 // JavaScript code
@@ -19,7 +19,7 @@ let horas = 0;
 let minutos = 0;
 let sobra = 0;
 let final_minutos = 0;
-let hoursList = [];
+let listaHoras = [];
 
 while (true) {
     let tempo = prompt("Digite o horário (horas e minutos separados por ':' e com duas casas para os minutos), ou '0' para finalizar: ");
@@ -30,12 +30,17 @@ while (true) {
         minutos = parseInt(tempo.slice(tempo.indexOf(':') + 1));
         total_horas += horas;
         total_minutos += minutos;
-        hoursList.push(`${horas}:${minutos}`);
-        // Update previous hours display
-        document.getElementById('previousHours').innerHTML = "<h3>Horas colocadas:</h3>";
-        for (let i = 0; i < hoursList.length; i++) {
-            document.getElementById('previousHours').innerHTML += "<p>" + hoursList[i] + "</p>";
+
+        if (minutos < 10) {
+            minutos = "0" + minutos;
         }
+
+        listaHoras.push(`${horas}:${minutos}`);
+        let horasDisplay = "<h3>Horas colocadas:</h3>";
+        for (let i = 0; i < listaHoras.length; i++) {
+            horasDisplay += "<p>" + listaHoras[i] + "</p>";
+        }
+        document.getElementById('horasAnteriores').innerHTML = horasDisplay;
     }
 }
 
@@ -43,16 +48,16 @@ if (total_minutos >= 60) {
     sobra = parseInt(total_minutos / 60);
     final_minutos = total_minutos % 60;
 } else {
-    final_minutos = total_minutos
+    final_minutos = total_minutos;
 }
 
 total_horas += sobra;
 
 if (final_minutos < 10) {
-    final_minutos = "0" + final_minutos; // Add leading zero if necessary
+    final_minutos = "0" + final_minutos;
 }
 
-document.getElementById('previousHours').innerHTML += "<p>Tempo total = " + total_horas + ":" + final_minutos + "</p>";
+document.getElementById('horasAnteriores').innerHTML += "<p>Tempo total = " + total_horas + ":" + final_minutos + "</p>";
 </script>
 
 </body>
